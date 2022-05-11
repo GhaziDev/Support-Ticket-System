@@ -1,0 +1,384 @@
+.body{
+  display:none;
+  margin:0;
+}
+.login-div{
+  display: flex;
+  background-color: #1b1b1b  ;
+  justify-content: center;
+  height: 100%;
+  width:100%;
+  position:absolute;
+  align-items:center;
+  align-content: center;
+
+}
+
+.signup-login{
+  display:block;
+  text-decoration: none;
+  color:orangered;
+  margin-top:15px;
+}
+
+.email-inp{
+  background-color:#1b1b1b  ;
+  color:#fffafa;
+  width:350px;
+  height:25px;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  outline:none;
+  outline-style: none;
+  border-bottom: solid 1px;
+  z-index:1;
+  margin-right:200px;
+  font-size:20px;
+}
+.email-inp:focus{
+  border-bottom-color: blueviolet;
+}
+.password-inp{
+  background-color:#1b1b1b;
+  color:white;
+  width:350px;
+  height:25px;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  outline:none;
+  outline-style: none;
+  border-bottom: solid 1px;
+  display: block;
+  margin-top:40px;
+  font-size:20px;
+}
+.password-inp:focus{
+  border-bottom-color: blueviolet;
+  z-index:2;
+}
+.login-btn{
+  width:350px;
+  height:50px;
+  margin-top:40px;
+  outline:none;
+  border:none;
+  transition:0.4s;
+  font-size:18px;
+  font-weight:550;
+}
+
+.login-btn:hover{
+  cursor: pointer;
+  background-color: blueviolet;
+  color:#1b1b1b;
+
+}
+
+.link{
+  display:block;
+  text-decoration: none;
+  color:blueviolet;
+   margin-top: 15px;
+}
+
+
+
+
+.signup-div{
+  display:flex;
+  position: absolute;
+  background-color: #1b1b1b;
+  justify-content: center;
+  width:100%;
+  height:100%;
+  align-items:center;
+}
+
+.email-sinp{
+  background-color:#1b1b1b  ;
+  color:#fffafa;
+  width:350px;
+  height:25px;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  outline:none;
+  outline-style: none;
+  border-bottom: solid 1px;
+  margin-right:200px;
+  font-size:20px;
+}
+
+.email-sinp:focus{
+  border-bottom-color: #fa8231;
+}
+
+
+.password-sinp{
+  background-color:#1b1b1b;
+  color:white;
+  width:350px;
+  height:25px;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  outline:none;
+  outline-style: none;
+  border-bottom: solid 1px;
+  display: block;
+  margin-top:40px;
+  font-size:20px;
+}
+.password-sinp:focus{
+  border-bottom-color: #fa8231;
+}
+
+.signup-btn{
+  width:350px;
+  height:50px;
+  margin-top:40px;
+  outline:none;
+  border:none;
+  transition:0.4s;
+  font-size:18px;
+  font-weight:550;
+}
+
+.signup-btn:hover{
+  cursor: pointer;
+  background-color: #fa8231;
+  color:#1b1b1b;
+
+}
+
+/*.ticket-form-div{
+  display: flexbox;
+  width:100%;
+  height:100%;
+  position: absolute;
+  background-color:#393E46;
+  color:#fffafa;
+  word-break:break-all;
+  overflow-y:scroll;
+}
+.ticket-div{
+  display: flex;
+  background-color:#222831;
+  width:30%;
+  height:fit-content;
+  word-wrap: break-word;
+  z-index:1;
+  border-radius: 2px;
+  box-shadow: 4px 5px #222831;
+  margin-top: 7px;
+  align-items: flex-start;
+ 
+}
+
+.ticket-div:hover{
+  cursor:pointer;
+}
+
+
+
+.title{
+  display:block;
+  font-size: 20px;
+  
+
+}
+
+
+.status{
+  display:block;
+  width:12%;
+  height:1%;
+  background-color: green;
+}
+
+.desc{
+  display: flexbox;
+  height: fit-content;
+  width:fit-content;
+}
+
+.title-inp{
+  display:block;
+  border:none;
+  outline:none;
+  outline-style:none;
+  border-bottom:solid 1px;
+  background-color: #393E46;
+  color:#EEEEEE;
+  margin-top:40px;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  margin-right: 30px;
+
+
+}
+
+.title-inp:focus{
+  color:#00ADB5;
+}
+
+.desc-inp{
+  display:block;
+  border:none;
+  outline:none;
+  outline-style:none;
+  border-bottom: solid 1px;
+  background-color: #393E46;
+  color:#EEEEEE;
+  margin-top: 30px;
+}
+
+.desc-inp:focus{
+  color:#00ADB5;
+}
+
+.ticket-btn{
+  border:none;
+  outline:none;
+  outline-style: none;
+  height:50px;
+  width:165px;
+  margin-top: 20px;
+  transition: 0.3s;
+}
+.ticket-btn:hover{
+  background-color: #00ADB5;
+  cursor:pointer;
+}
+*/
+
+.ticket-form-div{
+  background-color: #04293A;
+  display:flex;
+  flex-flow: column wrap;
+  align-items:center;
+  width:100%;
+  height:100%;
+
+}
+
+.ticket-div{
+  background-color: #041C32;
+  border: 3px solid #064663;
+  margin-top:4px;
+  padding:10px 10px 10px 10px;
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+  width:30%;
+  box-shadow: 6px 6px #041C32;
+
+}
+
+.desc{
+  display:flex;
+  word-break: break-all;
+  margin-bottom:20px;
+  color:aquamarine;
+
+}
+
+.desc::selection{
+  background-color: black;
+  color:white;
+}
+.title{
+  display:flex;
+  justify-content: center;
+  margin-bottom:20px;
+  color:rgb(224, 0, 206);
+}
+
+.title:hover{
+  cursor:pointer;
+}
+
+.status{
+  display:flex;
+  background-color: green;
+  color:white;
+}
+
+.desc-inp{
+  display:flex;
+  border-top:none;
+  border-right:none;
+  border-left:none;
+  border-bottom:1px solid;
+  outline:none;
+  outline-color: none;
+  background-color: #04293A;
+  color:aquamarine;
+  margin-top:40px;
+}
+
+.desc-inp:focus, .desc-inp:active{
+  border-color:aquamarine;
+}
+
+.title-inp{
+  display:flex;
+  border-top:none;
+  border-right:none;
+  border-left:none;
+  border-bottom:1px solid;
+  outline:none;
+  outline-color: none;
+  background-color: #04293A;
+  color:rgb(224, 0, 206);
+  margin-top:20px;
+
+}
+
+.ticket-btn{
+  display:flex;
+  border-top:none;
+  border-bottom: none;
+  border-right:none;
+  border-left:none;
+  outline:none;
+  outline-color:none;
+  margin-top:20px;
+  margin-left:30px;
+  width:100px;
+  height:30px;
+  text-align:center;
+  font-size:13px;
+  font-weight: 550;
+  transition: 0.4s;
+
+}
+.ticket-btn:hover{
+  background-color:#064663;
+  color:aquamarine;
+  cursor:pointer;
+
+}
+
+.logout-btn{
+  display:grid;
+  justify-self: end;
+  background-color: black;
+  color:white;
+  border-top:none;
+  border-bottom:none;
+  border-right:none;
+  border-left:none;
+  outline:none;
+  outline-color:none;
+  transition: 0.4s;
+}
+
+.logout-btn:hover{
+  background-color: white;
+  color:black;
+  cursor:pointer;
+}
