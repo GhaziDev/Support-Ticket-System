@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: pwny
+Version: 0.1.5
+Summary: A small binary exploitation framework.
+Home-page: https://github.com/fr3akout/pwny
+Author: André Kupka
+Author-email: kupka@in.tum.de
+License: MIT
+Description: A small binary exploitation framework, that provides functionality to communicate with remote servers and write rop chains.
+Keywords: binary exploitation pwning pwny
+Platform: UNKNOWN

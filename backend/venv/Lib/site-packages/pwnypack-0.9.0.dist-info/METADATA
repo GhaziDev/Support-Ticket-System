@@ -1,0 +1,355 @@
+Metadata-Version: 2.0
+Name: pwnypack
+Version: 0.9.0
+Summary: Official Certified Edible Dinosaurs CTF toolkit.
+Home-page: https://github.com/edibledinos/pwnypack/
+Author: Ingmar Steen
+Author-email: iksteen@gmail.com
+License: UNKNOWN
+Download-URL: https://github.com/edibledinos/pwnypack/tarball/v0.9.0
+Description-Content-Type: UNKNOWN
+Keywords: wargame,ctf
+Platform: UNKNOWN
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Security
+Classifier: Topic :: Security :: Cryptography
+Requires-Dist: six
+Requires-Dist: kwonly-args
+Requires-Dist: counter; python_version<"2.7"
+Requires-Dist: ordereddict; python_version<"2.7"
+Requires-Dist: argparse; python_version<"2.7"
+Requires-Dist: shutilwhich; python_version<"3.3"
+Requires-Dist: enum34; python_version<"3.4"
+Provides-Extra: all
+Requires-Dist: capstone; extra == 'all'
+Requires-Dist: keystone-engine; extra == 'all'
+Provides-Extra: all
+Requires-Dist: ipython; python_version>="2.7" and extra == 'all'
+Requires-Dist: jupyter; python_version>="2.7" and extra == 'all'
+Requires-Dist: paramiko; python_version>="2.7" and extra == 'all'
+Provides-Extra: asm
+Requires-Dist: keystone-engine; extra == 'asm'
+Provides-Extra: disasm
+Requires-Dist: capstone; extra == 'disasm'
+Provides-Extra: pwnbook
+Requires-Dist: jupyter; python_version>="2.7" and extra == 'pwnbook'
+Provides-Extra: rop
+Requires-Dist: capstone; extra == 'rop'
+Provides-Extra: shell
+Requires-Dist: ipython; python_version>="2.7" and extra == 'shell'
+Provides-Extra: ssh
+Requires-Dist: paramiko; python_version>="2.7" and extra == 'ssh'
+
+pwnypack
+========
+
+The official *Certified Edible Dinosaurs* CTF toolkit. *pwnypack*
+attempts to provide a toolset which can be used to more easily develop
+CTF solutions.
+
+|Build Status|
+
+Motivation
+----------
+
+After seeing the excellent
+`pwntools <https://github.com/Gallopsled/pwntools>`__ by Gallopsled, I
+got interested in building my own CTF toolkit. *pwntools* is much more
+complete so you should probably use that. *pwnypack* was created mostly
+out of curiosity.
+
+Installation
+------------
+
+First, make sure your `setuptools` and `pip` packages are up to date:
+
+.. code:: bash
+
+    $ pip install -U setuptools pip
+
+To install the latest released version of pwnypack with all optional
+dependencies, run:
+
+.. code:: bash
+
+    $ pip install --no-binary capstone,keystone-engine pwnypack[all]
+
+To install the latest released version of pwnypack with minimal
+dependencies, run:
+
+.. code:: bash
+
+    $ pip install pwnypack
+
+Other available install targets are:
+
+- ``--no-binary keystone-engine pwnypack[asm]`` - installs ``keystone-engine``
+  to support all assembler targets without any additional depenencies.
+
+- ``--no-binary capstone pwnypack[disasm]`` - installs ``capstone`` for AT&T
+  and intel syntax disassembly, required to disassemble ARM binaries.
+
+- ``--no-binary capstone pwnypack[rop]`` - installs ``capstone`` to validate
+  ROP gadgets.
+
+- ``pwnypack[ssh]`` - installs ``paramiko`` to enable the ``Flow`` module to
+  connect to SSH servers.
+
+- ``pwnypack[shell]`` - installs ``ipython`` to support the enhanced pwnypack
+  REPL environment.
+
+- ``pwnypack[pwnbook]`` - installs ``jupyter`` to support the ``pwnbook`` jupyter
+  notebook.
+
+If you want to use the interactive shell I highly recommend installing
+either ``bpython`` or ``ipython`` as those packages can make your time in
+the shell a lot more enjoyable.
+
+Docker
+------
+
+You can also use our published docker images.
+
+To start an ipython powered pwnypack shell:
+
+.. code:: bash
+
+    docker pull edibledinos/pwnypack:latest
+    docker run --rm -it edibledinos/pwnypack:latest
+
+Or, to run pwnbook:
+
+.. code:: bash
+
+    docker pull edibledinos/pwnbook:latest
+    docker run --rm -it -p 8888:8888 edibledinos/pwnbook:latest
+
+Both images expose a volume (``/projects``). Feel free to mount something
+interesting there.
+
+Three tags are available:
+
+- ``py3`` (or: ``latest``) installs python 3 and pwnypack/pwnbook.
+- ``py2`` installs python 2 and pwnypack/pwnbook.
+
+Usage
+-----
+
+To import all of *pwnypack* into your global namespace, use:
+
+.. code:: python
+
+    >>> from pwny import *
+
+Or, if you're using python 2.7+ or python 3.3+, try the customized
+bpython or IPython shell:
+
+.. code:: bash
+
+    $ pwny shell
+
+If you have bpython and/or IPython installed you can use ``--bpython``,
+``--ipython`` or ``--python`` to select which interactive kernel to use.
+
+I promise that effort will be put into not exposing unnecessary stuff
+and thus overly polluting your global namespace.
+
+For an example, check out the `Big Prison
+Fence <https://github.com/edibledinos/pwnypack/wiki/Big-Prison-Fence>`__
+example in the wiki.
+
+Common errors
+-------------
+
+Capstone/keystone fails to import the dynamic library.
+
+.. code::
+
+   Traceback (most recent call last):
+     File "<stdin>", line 1, in <module>
+     File "/home/ingmar/.virtualenvs/pp/lib/python3.5/site-packages/capstone/__init__.py", line 230, in <module>
+       raise ImportError("ERROR: fail to load the dynamic library.")
+   ImportError: ERROR: fail to load the dynamic library.
+
+The ``capstone`` and ``keystone`` packages have a bug which when used with a
+new verion of ``pip`` will end up installing the dynamic libraries in the
+wrong location on some platforms. Re-install ``capstone`` and/or ``keystone``
+using:
+
+.. code:: bash
+
+    $ pip install --no-binary capstone capstone
+    $ pip install --no-binary keystone-engine keystone-engine
+
+SyntaxError when importing pwnypack.
+
+.. code::
+
+   Traceback (most recent call last):
+     File "<stdin>", line 1, in <module>
+     File "pwny/__init__.py", line 9, in <module>
+       from pwnypack.pwnbook import *
+     File "pwnypack/pwnbook.py", line 2, in <module>
+       from jupyter_client import kernelspec as kernelspec
+     File "/Users/ingmar/.virtualenvs/pwny26/lib/python2.6/site-packages/jupyter_client/__init__.py", line 4, in <module>
+       from .connect import *
+     File "/Users/ingmar/.virtualenvs/pwny26/lib/python2.6/site-packages/jupyter_client/connect.py", line 23, in <module>
+       from traitlets.config import LoggingConfigurable
+     File "/Users/ingmar/.virtualenvs/pwny26/lib/python2.6/site-packages/traitlets/__init__.py", line 1, in <module>
+       from .traitlets import *
+     File "/Users/ingmar/.virtualenvs/pwny26/lib/python2.6/site-packages/traitlets/traitlets.py", line 1331
+       return {n: t for (n, t) in cls.class_traits(**metadata).items()
+                      ^
+   SyntaxError: invalid syntax
+
+You've installed jupyter notebooks on python 2.6. Use a more modern version
+of python.
+
+Documentation
+-------------
+
+*pwnypack*'s API documentation is hosted on
+`readthedocs <http://pwnypack.readthedocs.org/>`__.
+
+For information on the commandline apps use the built in help function:
+
+.. code:: bash
+
+   $ pwny --help
+   $ pwny shell --help
+
+Contributors
+------------
+
+*pwnypack* was created by Certified Edible Dinosaurs (dsc & doskop). If you
+want to contribute, feel free to fork and create a pull request on
+`GitHub <https://github.com/edibledinos/pwnypack>`__.
+
+Current contributors:
+
+- blasty <peter@haxx.in> contributed the ARM shellcode generator.
+
+License
+-------
+
+*pwnypack* is distributed under the MIT license.
+
+.. |Build Status| image:: https://travis-ci.org/edibledinos/pwnypack.svg?branch=travis-ci
+   :target: https://travis-ci.org/edibledinos/pwnypack
+
+Release history
+###############
+
+next release
+============
+
+0.9.0 (2017-11-17)
+==================
+
+* Adding missing dev packages on docker images.
+* Docker images clone latest branch of pwnypack repository.
+* Fix magic command registration on IPython >= 5.0.0.
+* Support parsing (a subset of) ~/.ssh/config in flow.SSHClient.
+* Fix aarch64 support when using keystone engine.
+* Added padding oracle attack functions.
+* Added keystone-engine dependency for 'asm' and 'all' targets.
+* Make pwnbook, shell and ssh targets require python 2.7+.
+* Added internals for python 3.5.2 and 3.6.
+
+0.8.0 (2016-05-17)
+==================
+
+* Return empty list when trying to read non-existing .dynamic section.
+* Don't print newline when piping the output of a gadget.
+* Fix output of raw binary data on python 3.
+* Add pwnypack extension for ipython.
+* Add pwnypack jupyter notebook wrapper (pwnbook).
+* Moved and renamed util.pickle_call to pickle.pickle_invoke.
+* Added pickle_func that pickles a function and its invocation.
+* Added support for using GNU binutils to assemble AT&T and intel syntax.
+* Added support for assembling/disassembling ARM using binutils/capstone.
+* Use extras_require to make capstone, paramiko and jupyter optional.
+* Add Dockerfile for pwnypack shell and pwnbook.
+* Fix interact on python 3 in Flow.
+* Add python bytecode manipulation functions.
+* Added shellcode generator for X86/X86_64, ARM (+Thumb) and AArch64.
+* Use keystone engine as assembler engine by default.
+* Added xor mask finder.
+* Added python independent marshal and .pyc loader.
+* Fix internal escaping of reghex expressions.
+* Allow wildcards when searching for ROP gadgets using assembly statements.
+
+0.7.2 (2016-03-11)
+==================
+
+* Added support for .dynamic section parsing to ELF class.
+* Added checksec command line app.
+* Make pwnypack available as a universal wheel.
+
+0.7.1 (2016-03-07)
+==================
+
+* Add support for bpython and plain python interactive shells.
+* Fix missing newline after the output of several commandline apps.
+* Added PHP serialized data generation function and helper.
+* Add enurlform / deurlform / enurlquote / deurlquote functions.
+
+0.7.0 (2015-07-12)
+==================
+
+* Made IPython an optional dependency (pip install pwnypack[shell]).
+* Added pickle_call function to easily execute a function on unpickle.
+* Added format string vulnerability exploit builder.
+* Renamed TCPSocketChannel to TCPClientSocketChannel.
+* Added TCPServerSocketChannel which can listen for an incoming connection.
+* Added Flow.interact() method.
+* Added support for connecting to SSH servers from Flow.
+
+0.6.0 (2015-04-14)
+==================
+
+* Bugfixes (and travis-ci integration).
+* `API documentation <http://pwnypack.readthedocs.org/>`_ and docstrings.
+* Cycle-find can read from stdin.
+* Major refactoring of ELF class. It can now parse section headers, program
+  headers, symbol tables and extract section, symbols.
+* Major refactoring of Target class. It's no longer tied to ELF (ELF is still
+  a subclass of Target though).
+* A reghex compiler.
+* Verifying ROP gadget finder.
+* Disassembler functionality (based on ndisasm or capstone).
+* The ability to redirect stderr to stdout in flow.ProcessChannel.
+* The ability to create symlinks for commandline apps.
+* New commandline apps:
+    * ``asm`` to assemble from commandline.
+    * ``symbols`` to list the symbol table of an ELF file.
+    * ``gadget`` to find ROP gadgets in an ELF file.
+    * ``symbol-extract`` to extract a symbol from an ELF file.
+    * ``symbol-disasm`` to disassemble a symbol in an ELF file.
+
+0.5.2 (2015-03-22)
+==================
+
+* Added command line apps and a customized IPython shell.
+
+0.5.1 (2015-03-21)
+==================
+
+* Python3 fixes for flow:
+    * Use latin1 for echo mode as not everything will be encodable as utf-8.
+    * Disable buffering on subprocess.
+
+0.5.0 (2015-03-21)
+==================
+
+* Initial release.
+
+

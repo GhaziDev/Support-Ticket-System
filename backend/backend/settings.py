@@ -44,6 +44,11 @@ ACCESS_ALLOW_HEADERS = [
 ACCESS_CONTROL_ALLOW_ORIGIN = "*"
 
 
+
+CSRF_COOKIE_SAMESITE = 'Strict'  
+
+SECRET_KEY = 'gyfc=m8o$o8cbj6no4ft1)+((e@-vgca!2#iaw@fctzr(na(ix'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -104,9 +109,9 @@ DATABASES = {
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ]
 }
 
 # Password validation

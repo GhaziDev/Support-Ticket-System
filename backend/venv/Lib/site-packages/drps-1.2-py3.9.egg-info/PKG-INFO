@@ -1,0 +1,17 @@
+Metadata-Version: 1.1
+Name: drps
+Version: 1.2
+Summary: A module that aim to make it faster to start your fullstack project with few inputs in short time.Also all neccessary modules are supplied within starting the project.
+Home-page: https://github.com/ghazigamer/
+Author: Ghazi
+Author-email: ghazi-z3balawi@putlook.com
+License: MIT
+Download-URL: https://github.com/ghazigamer/Django-React-Project-Setup/archive/refs/tags/v_01.zip
+Description: UNKNOWN
+Keywords: Project,Setup,For,Django,And,React
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.9

@@ -17,17 +17,16 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from main import views
-from rest_framework_simplejwt.views import (
-    TokenRefreshView,
-)
+from django.contrib.auth.views import LogoutView
 
 router = routers.SimpleRouter()
-router.register('ticket', views.CreateTicketView,basename='ticket')
-router.register('signup',views.SingUpView,'signup')
+router.register(r'ticket', views.CreateTicketView,basename='ticket')
+router.register(r'signup',views.SingUpView,'signup')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('token/', views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('login/',views.LoginView.as_view(),name='login'),
+    path('logout/',LogoutView.as_view(),name='logout'),
+    path('isauthenticated/',views.CheckIsAuthenticated.as_view(),name='auth'),
     path('',include(router.urls)),
 ]

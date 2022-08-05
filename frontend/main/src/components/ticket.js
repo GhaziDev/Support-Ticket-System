@@ -1,12 +1,13 @@
 import React,{useEffect, useState} from 'react';
-import { useNavigate ,BrowserRouter} from 'react-router-dom';
 import axios from 'axios'
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const Ticket = ()=>{
-    let [ticket,setTicket] = useState({'user':+localStorage.getItem("username"),'title':'','desc':'','is_solved':false})
+    let [ticket,setTicket] = useState({'user':'','title':'','desc':'','is_solved':false})
     let [ticketList,setTicketList] = useState([])
     let {user,title,desc,is_solved}=ticket
-    let [color,setColor] = useState('red')
+    let redirect = useNavigate()
     function handleChange(e){
         setTicket(
             {
@@ -15,9 +16,21 @@ const Ticket = ()=>{
             }
         )
     }
+
     useEffect(()=>{
-        const token = localStorage.getItem('access')
-        axios.get('http://127.0.0.1:8000/ticket/',{headers:{'Authorization':`Bearer ${token}`}}).then(
+        axios.get('http://127.0.0.1:8000/isauthenticated/',{withCredentials:true}).then((res)=>{
+            setTicket(
+                {
+                ...ticket,user:res.data
+                }
+            )
+        }).catch((e)=>{
+            console.log(e.response.data)
+            redirect('/login')
+        })
+    },[])
+    useEffect(()=>{
+        axios.get('http://127.0.0.1:8000/ticket/',{withCredentials:true}).then(
             (res)=>{
                 setTicketList(
                     [...res.data]
@@ -25,29 +38,23 @@ const Ticket = ()=>{
             }
         ).catch((e)=>{
             if(e.response.status===401){
-                window.location.replace('/login')
+                console.log(e.response.data)
+
 
 
             }
         })
-        },[])
+        },[ticket.desc])
     
 
     function handleSubmit(e){
         e.preventDefault()
-        let token = localStorage.getItem('access')
-        axios.post('http://127.0.0.1:8000/ticket/',ticket,{headers:{'Authorization':`Bearer ${token}`}}).then((res)=>{
+        axios.post('http://127.0.0.1:8000/ticket/',ticket,{withCredentials:true,headers:{'X-CSRFToken':Cookies.get('csrftoken')}}).then((res)=>{
             setTicketList([...ticketList,res.data])
             console.log(...ticketList)
-            console.log(res.data)
     }
         ).catch((e)=>{
-            console.log(e.response)
-            if(e.response.status===401){
-                window.location.replace('/login')
-
-
-            }
+            console.log(e.response.data)
         }
         )
 
@@ -55,10 +62,9 @@ const Ticket = ()=>{
 
 function handleLogout(e){
     e.preventDefault()
-    localStorage.removeItem('access')
-    localStorage.removeItem('refresh')
-    localStorage.removeItem('username')
-    window.location.replace('/login')
+    axios.get('http://127.0.0.1:8000/logout/',{withCredentials:true}).then(()=>{
+        redirect('/login')
+    })
 }
 
     function listTickets(){
